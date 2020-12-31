@@ -21,7 +21,6 @@ if len(sys.argv) > 1:
     file_name = sys.argv[1]
 
 stream = None
-print("test")
 if file_name.startswith("http://") or file_name.startswith(
     "https://"
 ):
@@ -37,6 +36,13 @@ else:
 # (ARC or WARC), record type, the record headers, http headers (if any),
 # and raw stream for reading the payload.
 
+covid_keywords = ks.make_trie("COVID-19", "coronavirus", "pandemic", "WHO", "CDC", "vaccine")
+econ_keywords = ks.make_trie("IRS", "economy", "recession", "money", "dollar", "stocks")
+
+def clean(body):
+    return ks.remove_delimiters(ks.remove_delimiters(body, "{", "}"), "<", ">")
+
+candidates = []
 for record in ArchiveIterator(stream):
     if record.rec_type == "warcinfo":
         continue
@@ -47,40 +53,39 @@ for record in ArchiveIterator(stream):
         continue
 
     entries = entries + 1
-    #Processing happens right here
 
+    # Data is read and decoded
     contents = (
         record.content_stream()
         .read()
         .decode("utf-8", "replace")
     )
+    # Data is cleaned
     soup = BeautifulSoup(contents, "html5lib")
-    #print(soup.find_all('body'))
+    body = clean(contents)
+    # print(body)
 
-    score = 0
-    covid_keywords = ["COVID-19", "coronavirus", "<"]
-    econ_keywords = ["IRS", "economy"]
+    if body != "":
+        # Data is read and scored
+        covid_score = ks.scan(body, covid_keywords)
+        econ_score = ks.scan(body, econ_keywords)
+        correlation_score = 0
 
-    # Improve this search to a trie-based search if/when needed
-    # Do a pre-processing to clean out of very common words and delimiters if/when needed
-    body = soup.find_all('b')
-    for keyword in covid_keywords + econ_keywords:
-        if keyword in body:
-            score += 1
-    print(score)
+        if covid_score + econ_score > 0:
+            candidates.append(record)
+            print(record.rec_headers.get_header("WARC-Target-URI"))
+            print(covid_score, econ_score)
 
-    #print(soup)
+        #m = regex.search(contents)
+        #if m:
+        #    matching_entries = matching_entries + 1
+        #    hits = hits + 1
+        #    m = regex.search(contents, m.end())
+        #while m:
+        #   m = regex.search(contents, m.end())
+        #    hits = hits + 1
 
-    # Contents are the HTML file itself. We can parse out all the delimiters and CSS and extract the actual data
 
-    m = regex.search(contents)
-    if m:
-        matching_entries = matching_entries + 1
-        hits = hits + 1
-        m = regex.search(contents, m.end())
-    while m:
-        m = regex.search(contents, m.end())
-        hits = hits + 1
 
 print(
     "Python: "

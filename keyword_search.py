@@ -40,8 +40,22 @@ def scan(body, trie):
             curr = trie
     return counter
 
-print(scan("the quick fox jumps over the lazy dog", make_trie("fox", "og", "o")))
+def remove_delimiters(body, left, right):
+    counter = 0
+    new_string = ""
+    for letter in body:
+        if letter == left:
+            counter += 1
+        elif letter == right:
+            counter -= 1
+        elif counter == 0:
+            new_string += letter
+    return new_string
 
+print(scan("the quick fox jumps over the lazy dog", make_trie("fox", "og", "o")))
 print(scan("dadadadadadadadadadad", make_trie("ad", "da")))
+
+print(remove_delimiters("the quick <brown> fox jumps <\over> the la<z<y>> dog", "<", ">"))
+
 
 
