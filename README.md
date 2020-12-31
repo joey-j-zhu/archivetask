@@ -1,20 +1,18 @@
 # archivetask
 
-The given code essentially gives us the HTML, CSS, and JavaScript of raw pages, which include a lot of boilerplate and delimiters that we can parse out. Some quick searching shows that BeautifulSoup (bs4) and HTML5Lib appear to be the libraries I'm looking for in order to do this.
+The given code essentially gives us the HTML, CSS, and JavaScript of raw pages, which include a lot of boilerplate and delimiters that we can parse out. Some quick searching shows that BeautifulSoup (bs4) and HTML5Lib appear to be the libraries I'm looking for in order to do this. 
 
 After this, we've distilled the problem into matching up sequences of strings. I do have brute-force methods like keyword searches at my disposal; a straightforward solution would just be to give each page a score based on how well it matched a list of keywords, and sort them and take the best ones.
 
 Step 1: Hardcode the keywords, and brute-force count their occurrences in each page. 
+
+Make it faster, but we don't have to worry about that yet: We can switch to more optimal search methods involving tries later. Parsing will probably not change the algorithm because HTML, CSS, and JS symbols have no correlation with coronavirus and the economy, but getting rid of those will speed up the reading.
 
 
 
 
 
 However, it would be very helpful to learn a list of keywords rather than hardcode them in. This would be prone to picking up articles that just happen to have keywords like "Vaccine" and "IRS" in totally irrelevant contexts. NLP and unsupervised ML may have to be leveraged to efficiently solve such problems. I haven't formally learned the go-to algorithms, but I can at least imitate the approaches. But if I cannot manage to finish that and have to hardcode my keywords, I have other tools to help.
-
-
-
-
 
 
 
