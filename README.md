@@ -6,13 +6,10 @@ After this, we've distilled the problem into matching up sequences of strings. I
 
 Step 1: Hardcode the keywords, and brute-force count their occurrences in each page. 
 
-Make it faster, but we don't have to worry about that yet: We can switch to more optimal search methods involving tries later. Parsing will probably not change the algorithm because HTML, CSS, and JS symbols have no correlation with coronavirus and the economy, but getting rid of those will speed up the reading.
+To make it faster, we can switch to trie-based keyword searching. The stuff inside HTML and CSS delimiters will have no relevance with our keywords so we can also get rid of them when detecting.
 
 
-
-
-
-However, it would be very helpful to learn a list of keywords rather than hardcode them in. This would be prone to picking up articles that just happen to have keywords like "Vaccine" and "IRS" in totally irrelevant contexts. NLP and unsupervised ML may have to be leveraged to efficiently solve such problems. I haven't formally learned the go-to algorithms, but I can at least imitate the approaches. But if I cannot manage to finish that and have to hardcode my keywords, I have other tools to help.
+However, it would be very helpful to learn a list of keywords rather than hardcode them in. This would be prone to picking up articles that just happen to have keywords like "Vaccine" and "IRS" in totally irrelevant contexts. NLP and unsupervised ML may have to be leveraged to efficiently solve such problems. I haven't formally learned the go-to algorithms, but I can at least imitate the approaches. 
 
 
 
@@ -32,18 +29,6 @@ so we can run Viterbi on occurrences of these keywords to see
 
 
 
-So right off the bat, we have the very coarse approach of simply scanning for keywords
-
-Warcio and URLLib3
-
-Reading WARC Records
-
-So the code given essentially 
-
-
-it looks like NLP and unsupervised ML would be key to making an efficient solution to this task. I don't know too much about NLP and ML but it looks like they would be key to making an efficient solution to this task.
-
-But those aren't really in my skills as of now, so I can opt for a more brute-force technique that simply involves sifting for keywords.
 
 
 
