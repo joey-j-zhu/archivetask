@@ -1,5 +1,7 @@
 # archivetask
 
+go.py is the file to be run. keyword_search.py is run 
+
 So for this project I'm only going to be concerning articles of the English alphabet.
 
 
@@ -36,6 +38,8 @@ So another way to simplify such a problem would be boil each word into one of th
 
 
 So I didn't get the time to implement everything or fix all my bugs, but I've laid out adequate structure and helper functions that executing my plans should be straightforward.
+
+4:35: Okay I'm having a lot of trouble figuring out how the data crawling queries and URLs work and I'm trying to change the given file_name to the 2020 crawls. If I can't get this fixed in 20 minutes then I won't have any URLs to return hence no score, so if that happens this was why.
 
 
 
