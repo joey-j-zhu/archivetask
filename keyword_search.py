@@ -27,6 +27,7 @@ def in_trie(trie, word):
         curr = curr[letter]
     return _end in curr
 
+# Count the number of times a word in the trie is found in a body text
 def scan(body, trie):
     curr = trie
     counter = 0
@@ -40,6 +41,19 @@ def scan(body, trie):
             curr = trie
     return counter
 
+# Iterate through a body text word by word, separated by spaces
+def parse(body, delimiter=''):
+    string = ""
+    i = 0
+    for i, letter in enumerate(body):
+        if letter == delimiter:
+            yield string
+            string = ""
+        else:
+            string += letter
+        i += 1
+
+
 def remove_delimiters(body, left, right):
     counter = 0
     new_string = ""
@@ -52,10 +66,10 @@ def remove_delimiters(body, left, right):
             new_string += letter
     return new_string
 
-print(scan("the quick fox jumps over the lazy dog", make_trie("fox", "og", "o")))
-print(scan("dadadadadadadadadadad", make_trie("ad", "da")))
+# print(scan("the quick fox jumps over the lazy dog", make_trie("fox", "og", "o")))
+# print(scan("dadadadadadadadadadad", make_trie("ad", "da")))
 
-print(remove_delimiters("the quick <brown> fox jumps <\over> the la<z<y>> dog", "<", ">"))
+# print(remove_delimiters("the quick <brown> fox jumps <\over> the la<z<y>> dog", "<", ">"))
 
 
 
